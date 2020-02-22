@@ -1,4 +1,4 @@
-def dynamic_plot(): 
+def dynamic_plot('pima-indians-diabetes.csv'):
     xx= input ("Which column do you want to plot: ")
     x = Data[:,int(xx)]
     plt.hist(x, bins = 50)
