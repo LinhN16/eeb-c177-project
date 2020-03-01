@@ -1,0 +1,176 @@
+% preamble
+\documentclass [letterpaper]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% title page
+\title{My Final Project}
+\author{Linh Ngau}
+\date{March 2020}
+
+% information within article
+\begin{document}
+
+\maketitle
+\section{Abstract}
+
+Write a quick summary (300 words or less) that includes major aspects of the paper 1) purpose of study and research problems investigated 2) basic design of study 3) major findings or trends found as a result of analysis and 4) brief summary of interpretations and conclusions.
+
+\newpage
+\tableofcontents
+\listoffigures
+\newpage
+
+\section{Introduction}
+The dataset was originally retrieved from the National Institute of Diabetes and Digestive and Kidney Diseases. The dataset aims to diagnostically predict whether a patient has diabetes based on particular diagnostic measurements retrieved from patients who are of Pima Indian Heritage. Early diagnosis of diabetes is important because, if a patient is found to have symptoms of diabetes, then there are preventative measures that can be taken in order to avoid being diagnosed with type 2 diabetes. Preventative measures that can be taken and advised to patients are lifestyle changes including increasing exercise frequency in conjunction with changes in diet by opting for more healthy food options.
+
+Outline:
+\begin{itemize} \itemsep-.2cm
+	\item Overview of project:
+	\begin{itemize}
+		\item Purpose: to aid in identifying potential health factors that could contribute to a diagnosis of diabetes
+		\item Methods: Obtain data on 8 health factors of females over the age of 21 that are of Pima Indian Heritage
+		\item Major findings: there were factors that looked like they had more of an impact on the amount of people who had diabetes vs. not
+		\item: Biological impact: early diagnosis of diseases like diabetes can be life- altering because there are preventative measures that can be taken to prevent these diseases
+	\end{itemize}
+\end{itemize}
+
+\section{Methods}
+
+% Starting the code- block and defining the language as Python
+\begin{lstlisting}[language=Python]
+
+\subsection{Importing the data}
+
+The manipulated dataset was originally from the National Institute of Diabetes and Digestive and Kidney Diseases. All patients that data was recorded from are all females of at least 21 years old and of Pima Indian Heritage.
+
+import numpy
+numpy.loadtxt(fname='pima-indians-diabetes.csv',delimiter=',')
+
+#768 rows and 9 columns where the last column shows prediction of 1 = diabetes and 0 = no diabetes
+#column 1: Number of times pregnant
+#column 2: Plasma glucose concentration a 2 hours in an oral glucose tolerance test
+#column 3: diastolic blood pressure (mmHG)
+#column 4: triceps skin fold thickness
+#column 5: 2-hour serum insulin (mu U/ml)
+#column 6: body mass index (weight in kg/(heightin m)^2)
+#column 7: diabetes pedigree function
+#column 8: age (years)
+
+Data = numpy.loadtxt(fname='pima-indians-diabetes.csv',delimiter=',')
+import numpy as np
+
+\subsection{Analysis of Predictor Variables of Diabetes}
+
+maxval, minval = np.max(Data, axis=0), np.min(Data,axis=0)
+stdval = np.std(Data,axis=0)
+
+#shows the max, min and stdval of all columns given by axis = 0
+print ('max:', maxval, ', min:',minval, ', stdev:', stdval)
+
+#gives mean # of times pregnant from all patients in the data collection
+NumberofTimesPregnant = np.mean(Data[:,0], axis=0)
+print (NumberofTimesPregnant)
+
+#visualize data through a dynamic function that allows user to retrieve data they choose to compare
+import matplotlib.pyplot as plt
+import os
+import sys
+def dynamic_plot(): 
+    xx= input ("Which column do you want to plot: ")
+    x = Data[:,int(xx)]
+    plt.hist(x, bins = 50)
+    yy= input ("What's the x axis label: ")
+    plt.xlabel(str(yy))
+    zz= input ("What's the y axis label: ")
+    plt.ylabel(str(zz))
+    aa= input ("What's the graph title: ")
+    plt.title (str(aa))
+    plt.show()
+
+x = Data[:,2]
+plt.hist(x, bins = 50)
+plt.xlabel('Blood pressure')
+plt.ylabel('number of individuals')
+plt.title ('Blood Pressure')
+plt.show()
+
+import os
+#Read file and datapath
+datapath= '/home/eebc177student/developer/repos/eeb-c177-project/analyses'
+workingdir= '/home/eebc177student/developer/repos/eeb-c177-project'
+os.chdir(datapath)
+
+#Patient data collected with each row indicating each patient
+with open ("pima-indians-diabetes.csv", "r") as ff: 
+    for line in ff:
+        print (line)
+
+
+#Function allows me to access individual patient's data
+dd= []
+with open ("pima-indians-diabetes.csv", "r") as ff: 
+    for line in ff:
+        dd.append(line)
+#to call for user's data: dd[row aka patient number here]
+
+import csv
+
+
+with open('pima-indians-diabetes.csv', newline='') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        print(row)
+
+
+with open('pima-indians-diabetes.csv', mode = 'r', encoding = 'utf-8-sig') as csvfile:
+    reader = csv.DictReader(csvfile)
+    occurances = 0
+    for row in reader:
+        occurances = occurances + 1
+    print('There are {} occurances of values to a key.\n'.format(occurances))
+    print('There are  {} rows, with the first row being keys '.format(occurances+1))
+    print('and all the subsequent rows being values to the keys.\n')
+
+#Useful to look into number of occurances of values within columns
+#Still need to tweak this code
+
+\end{lstlisting}
+
+\section{Results}
+
+\section{Discussion}
+It is vital to note that these predictions are based on very minimal health factors and to understand that there are a myriad of other factors that may affect one's chances of being diagnosed with diabetes.
+
+\section{Figures}
+
+\end{document}
