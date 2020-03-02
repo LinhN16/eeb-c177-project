@@ -151,7 +151,6 @@ with open('pima-indians-diabetes.csv', newline='') as csvfile:
     for row in reader:
         print(row)
 
-
 with open('pima-indians-diabetes.csv', mode = 'r', encoding = 'utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
     occurances = 0
@@ -162,7 +161,38 @@ with open('pima-indians-diabetes.csv', mode = 'r', encoding = 'utf-8-sig') as cs
     print('and all the subsequent rows being values to the keys.\n')
 
 #Useful to look into number of occurances of values within columns
-#Still need to tweak this code
+#still working on debugging this
+
+\end{lstlisting}
+
+\subsection{Regex Function}
+
+This implements the re.findall function that will analyze all of the integers within the list. In order to have this function work, I had to convert each column into its own text file. It will then output the maximum number within the column and the code can be manipulated to find the smallest value (aka minimum) as well to see the range of data.
+
+\begin{lstlisting}
+
+colnames = ['number_of_times_pregnant',  'glucose_conc',  'diastolic_bp',  'skin_fold_thickness', '2hr_serum_insulin', 'bmi', 'diabetes_ped_fxn', 'age']
+data = pandas.read_csv("pima-indians-diabets.csv", names=colnames)
+number_of_times_pregnant.txt= data.number_of_times_pregnant.tolist()
+glucose_conc.txt= data.glucose_conc.tolist()
+diastolic_bp.txt= data.diastolic_bp.tolist()
+skin_fold_thickness.txt= data.skin_fold_thickness.tolist()
+2hr_serum_insulin.txt= data.2hr_serum_insulin.tolist()
+bmi.txt= data.bmi.tolist()
+diabetes_ped_fxn.txt= data.diabetes_ped_fxn.tolist()
+age.txt=data.age.tolist()
+
+import csv
+import re
+
+def extractMax("bmi.txt"):
+	numbers = re.findall ('\d+', input)
+	numbers = map(int,numbers)
+	print max(numbers)
+
+if	max == "__main__":
+	extractMax("bmi.txt")
+#found the last part online which allows the max number to be extracted from the text file
 
 \end{lstlisting}
 
