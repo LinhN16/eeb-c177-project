@@ -219,14 +219,20 @@ head(df)
 #define p1 as a ggplot composed of data from variable df and including all rows and column V6 which is BMI data
 z <- df$V6
 p1 <- ggplot(data=df, aes(x=1:768, y=V6)) +
-  geom_bar(stat="identity")
+  geom_bar(stat="identity") +
+  geom_hline(yintercept = mean(z), color="blue")
+#added a line that shows the average BMI given all patient data, which shows that most patients are below average
 #add axis and graph titles
 p1 + labs(title="Patient BMI Data", x = "Patient (Number)", y = "BMI (weight in kg/(height in m)^2)")
 
+
 #did the same as the above in order to get a bar graph of age of all patients
+a <- df$V8
 p2 <- ggplot(data=df, aes(x=1:768, y=V8)) +
-  geom_bar(stat="identity")
+  geom_bar(stat="identity") +
+  geom_hline(yintercept = mean(a), color="blue")
 p2 + labs(title="Patient Age Data", x = "Patient (Number)", y = "Age (Years)")
+
 \end{lstlisting}
 
 \section{Results}
